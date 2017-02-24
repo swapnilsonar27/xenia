@@ -1,0 +1,59 @@
+<div class="top-content" ng-init="initializeEventGrid()">
+	<div class="header-title">
+		<h2>Xenia</h2>
+	</div>
+	<div class="inner-content">
+		<div class="container">
+			<div class="col-md-1"></div>
+			<div class="col-md-10 white-back">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 text">
+						<h1>Events</h1>
+
+					</div>
+					<div class="col-sm-2">
+						<button type="button" class="btn btn-success show-event"
+							ng-click="goToCreateEvent()">Create Event</button>
+					</div>
+				</div>
+
+				<div class="row">
+					<div ui-grid="gridOptionsInfo" ui-grid-auto-resize
+						ui-grid-pagination="grid" style="height: 450px;"></div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade grid-dialog" id="gridModal" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-label="Close">
+				<span aria-hidden="true">x</span>
+			</button>
+		</div>
+		<div class="modal-content">
+			<div class="grid-modal" id="login-view">
+				<div class="modal-content" style="padding-bottom: 20px">
+					<div ui-grid="detailsGridOptionsInfo" ui-grid-auto-resize
+						ui-grid-pagination="grid"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+.modal-dialog {
+	width: 300px;
+}
+
+.white-back {
+	padding: 2%;
+}
+</style>

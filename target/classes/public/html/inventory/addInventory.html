@@ -1,0 +1,94 @@
+<div class="top-content" ng-init="initilizeCreateInventory()">
+	<div class="header-title">
+		<h2>Xenia</h2>
+	</div>
+	<div class="inner-content">
+		<div class="container">
+			<div class="col-md-1"></div>
+			<div class="col-md-10 white-back">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 text">
+						<h1>Create New Inventory</h1>
+					</div>
+					<div class="col-sm-2">
+						<button type="button" class="btn btn-success show-event"
+							ng-click="onShowInventories()">Show Inventories</button>
+					</div>
+				</div>
+
+				<form id="inventoryForm" name="inventoryForm">
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="inventoryDescription">Inventory Description</label>
+							</div>
+							<div class="col-md-4">
+								<input type="text" class="form-control" name="inventoryDescription"
+									ng-model="inventory.description"
+									placeholder="Enter inventory description" required>
+							</div>
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="company">Company</label>
+							</div>
+							<div class="col-md-4">
+								<select class="form-control" name="company"
+									ng-model="inventory.companyId" required>
+									<option value="">Select One</option>{{companyData}}
+									<option ng-repeat="comp in companyData" value="{{comp.id}}">{{comp.label}}</option>
+								</select>
+							</div>
+							
+							<div class="col-md-2">
+								<label for="usp">Unit Selling Price</label>
+							</div>
+							<div class="col-md-4">
+								<input type="number" class="form-control" name="usp"
+									ng-model="inventory.unitSellingPrice" min = "0" placeholder="Enter Unit Selling Price"
+									required>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="image">Image</label>
+							</div>
+							<div class="col-md-4">
+								<input type="file" data-ng-file-select="getImage($files)" class="form-control width-300 col-sm-4" required>
+      							<!-- <img ng-show="inventoryForm.file.$valid" ngf-thumbnail="inventoryImage" class="thumb"> -->
+							</div>
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+
+					<div class="row form-space">
+						<div class="col-md-12 form-space">
+							<button type="button submit" class="btn btn-success"
+								ng-click="inventoryForm.$valid?onSaveInventory(inventory):''"
+								style="float: right">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+</div>
+
+<style>
+.white-back {
+	padding: 2%;
+}
+.thumb {
+	width: 100px;
+    height: 100px;
+    margin-top: 10px;
+}
+</style>

@@ -1,0 +1,170 @@
+
+<div class="top-content" ng-init="initilizeCreateEvent(true)">
+	<div class="header-title">
+		<h2>Xenia</h2>
+	</div>
+	<div class="inner-content">
+		<div class="container">
+			<div class="col-md-1"></div>
+			<div class="col-md-10 white-back">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 text">
+						<h1>Create New Event</h1>
+					</div>
+					<div class="col-sm-2">
+						<button type="button" class="btn btn-success show-event"
+							ng-click="onShowEvents()">Show Events</button>
+					</div>
+				</div>
+
+				<form id="eventForm" name="eventForm">
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="eventName">Event Name</label>
+							</div>
+							<div class="col-md-4">
+								<input type="text" class="form-control" name="eventName"
+									ng-model="event.eventDescription"
+									placeholder="Enter event name" required>
+							</div>
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2"></div>
+							<div class="col-md-4">
+								<input type="checkbox" ng-model="event.oneofevent"> One
+								of Event
+							</div>
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="startDate">Start Date</label>
+							</div>
+							<div class="col-md-4">
+								<input id='startdate' type='text' ng-model="event.startDate"
+									class="form-control" required/> 
+							</div>
+							<div class="col-md-2">
+								<label for="eventName" ng-hide="event.oneofevent">End
+									Date</label>
+							</div>
+							<div class="col-md-4">
+								<input id='enddate' type='text' ng-model="event.endDate"
+									class="form-control" ng-hide="event.oneofevent" ng-required="!event.oneofevent"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="frequencyType">Frequency</label>
+							</div>
+							<div class="col-md-4">
+								<select class="form-control" name="frequencyType"
+									ng-model="event.frequency" required>
+									<option value="">Select One</option>
+									<option value="daily">Daily</option>
+									<option value="weekly">Weekly</option>
+									<option value="monthly">Monthly</option>
+									<option value="annual">Annual</option>
+								</select>
+							</div>
+							<div class="col-md-2">
+								<label for="eventPrice">Event Price</label>
+							</div>
+							<div class="col-md-4">
+								<input type="number" class="form-control" name="eventPrice"
+									ng-model="event.eventPrice" step = "0.01"  min="0" placeholder="Enter event price"
+									required>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="company">Company</label>
+							</div>
+							<div class="col-md-4">
+								<select name="company" class="form-control" ng-change="onCompanyChange(event.company)"
+									ng-model="event.company" required>
+									<option ng-repeat="company in companyData" value="{{company.id}}">{{company.label}}</option>
+								</select>	
+							</div>
+							<div class="col-md-2">
+								<label for="organiser">Organiser</label>
+							</div>
+							<div class="col-md-4">
+								<!-- <select name="organiser" class="form-control"
+									ng-model="event.organiser">
+									<option ng-repeat="org in organiserData" value="{{org.id}}">{{org.label}}</option>
+								</select> -->
+								<ui-select multiple ng-model="event.organiser">
+								    <ui-select-match placeholder="Select Organiser">{{$item.label}}</ui-select-match>
+								    <ui-select-choices repeat="thisOrg in organiserSource | filter:$select.search">
+								        {{thisOrg.label}}
+								    </ui-select-choices>
+								</ui-select>	
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12 form-space">
+							<div class="col-md-2">
+								<label for="group">Group</label>
+							</div>
+							<div class="col-md-4">
+								<ui-select multiple ng-model="event.group">
+								    <ui-select-match placeholder="Select Group">{{$item.label}}</ui-select-match>
+								    <ui-select-choices repeat="thisGroup in groupSource | filter:$select.search">
+								        {{thisGroup.label}}
+								    </ui-select-choices>
+								</ui-select>
+
+							</div>
+							<div class="col-md-2">
+								<label for="inventory">Inventory</label>
+							</div>
+							<div class="col-md-4">
+								<ui-select multiple   ng-model="event.merchandise">
+								    <ui-select-match placeholder="Select Inventory">{{$item.label}}</ui-select-match>
+								    <ui-select-choices repeat="thisItem in inventorySource | filter:$select.search">
+								        {{thisItem.label}}
+								    </ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row form-space">
+						<div class="col-md-12 form-space">
+							<button type="button submit" class="btn btn-success"
+								ng-click="eventForm.$valid?onSaveEvent(event):''"
+								style="float: right">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+</div>
+
+<style>
+.white-back {
+	padding: 2%;
+}
+
+.k-i-close {
+	margin-top: 5px;
+}
+</style>

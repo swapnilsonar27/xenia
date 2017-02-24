@@ -1,0 +1,156 @@
+<div class="top-content">
+	<div class="header-title">
+		<h2>Xenia</h2>
+	</div>
+	<div class="inner-content">
+		<div class="container">
+			<div class="col-md-1"></div>
+			<div class="col-md-10 white-back">
+
+				<div class="row center-align">
+					<img src="/images/wasps-logo.png">
+				</div>
+
+				<div class="row" ng-hide="hideMembershipRenewal"
+					style="margin-bottom: 20px;">
+					<div class="col-md-12" ng-init="initializeMembership()">
+						<h1>Membership Renewal</h1>
+						<h5>You have the following member(s) for renewal and
+							available options:</h5>
+					</div>
+					<div class="col-md-12">
+						<table style="width: 100%">
+							<tr>
+								<th><input type="checkbox" ng-hide="tokens.isPaid"
+									ng-model="tokens.checked"> <span>{{tokens.name}}</span>
+									<span style="float: right" ng-hide="tokens.isPaid">{{currency}}{{tokens.eventPrice}}</span>
+									<span style="float: right" ng-show="tokens.isPaid">PAID</span>
+								</th>
+							</tr>
+							<tr ng-hide="tokens.isPaid">
+								<td>
+									<div class="col-md-3 center-align"
+										ng-repeat="inventory in inventories">
+										<img class="inv-img" src="{{inventory.imageUrl}}"> <br>
+										<input type="checkbox" ng-model="inventory.checked" ng-show="tokens.checked"> <label>{{currency}}{{inventory.unitSellingPrice}}</label>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+						<table style="width: 100%" ng-repeat="childUser in childUsers">
+							<tr>
+								<th><input type="checkbox" ng-hide="{{childUser.isPaid}}"
+									ng-model="childUser.checked"> <span>{{childUser.name}}</span>
+									<span style="float: right" ng-hide="{{childUser.isPaid}}">{{currency}}{{tokens.eventPrice}}</span>
+									<span style="float: right" ng-show="{{childUser.isPaid}}">PAID</span>
+							</tr>
+							<tr ng-hide="{{childUser.isPaid}}">
+								<td>
+									<div class="col-md-3 center-align"
+										ng-repeat="childInventory in childUser.childinventories">
+										<img class="inv-img" src="{{childInventory.imageUrl}}">
+										<br>
+										<input type="checkbox" ng-model="childInventory.checked" ng-show="childUser.checked">
+										<label>{{currency}}{{childInventory.unitSellingPrice}}</label>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<button type="button" class="btn btn-success show-event"
+							ng-click="onMakePayment()">Make Payment</button>
+					</div>
+				</div>
+
+				<div class="row" ng-hide="hideConfirmation">
+					<div class="col-md-12">
+						<button type="button" class="btn btn-success back-btn"
+						ng-click="onBack()">Back</button>
+					</div>
+					<div class="col-md-12">
+						<h1>Membership Confirmation</h1>
+					</div>
+					<div class="col-md-12">
+						<table style="width: 100%" ng-repeat="member in selectedMembers">
+							<tr>
+								<th>{{member.name}} <span style="float: right">{{currency}}{{member.eventPrice}}</span>
+								</th>
+							</tr>
+							<tr>
+								<td>
+									<ul>
+										<li ng-repeat="memberInventory in member.inventories">{{memberInventory.description}}
+											<span style="float: right;">{{currency}}{{memberInventory.unitSellingPrice}}</span>
+										</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+
+						<table style="width: 100%">
+							<tr>
+								<th>Total Payment <span style="float: right">{{currency}}{{membershipTotal}}</span>
+								</th>
+							</tr>
+						</table>
+
+						<form action="user/savepayinfo" method="POST" style="overflow:auto">
+							
+							<input type="hidden" name="total_amount" value="{{membershipTotal}}" /> 
+							<input type="hidden" name="event_user_id" value="{{tokens.eventUserId}}" /> 
+							<input type="hidden" name="paid_event_user_id" value="{{paidUserId}}" />
+
+							<div style="float:right">
+							<script src="https://secure.ewaypayments.com/scripts/eCrypt.js"
+								class="eway-paynow-button"
+								data-publicapikey="epk-3A03AB0C-CAB0-4D1C-A219-16FE542AB097"
+								data-amount={{membershipTotalPayment}} data-currency="AUD"
+								data-submitform="yes"
+								data-invoiceref="Inv-E{{tokens.eventId}}"
+								data-invoicedescription="{{tokens.eventDescription}}">
+								
+							</script>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+
+		</div>
+	</div>
+</div>
+
+<style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+th {
+	background-color: #607d8b;
+	color: white;
+}
+
+table,td,th {
+	border: 1px solid #ddd;
+	padding: 20px;
+}
+
+.inv-img {
+	width: 200px;
+	height: 200px;
+	margin-left: 10px;
+	margin-right: 10px;
+	border: 1px solid #ddd;
+}
+
+.back-btn {
+	margin-top: 20px;
+	float: left;
+}
+
+</style>

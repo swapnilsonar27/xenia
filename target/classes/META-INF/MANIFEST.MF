@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: xenia
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Swapnil
+Implementation-Vendor-Id: com.mnt
+Build-Jdk: 1.8.0_25
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
